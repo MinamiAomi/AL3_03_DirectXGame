@@ -1,6 +1,10 @@
 #include "GameScene.h"
-#include "TextureManager.h"
+
 #include <cassert>
+
+#include "TextureManager.h"
+#include "WinApp.h"
+
 
 GameScene::GameScene() {}
 
@@ -11,9 +15,31 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	cubeModel_.reset(Model::Create());
+	skydomeModel_.reset(Model::CreateFromOBJ("skydome"));
+	groundModel_.reset(Model::CreateFromOBJ("ground"));
+
+	camera_.Initialize();
+
+	debugCamera_ = std::make_unique<DebugCamera>(WinApp::kWindowWidth, WinApp::kWindowHeight);
+
+	player_ = std::make_unique<Player>();
+	player_->Initialize(cubeModel_.get());
+
+	skydome_ = std::make_unique<Skydome>();
+	skydome_->Initialize(skydomeModel_.get());
+
+	ground_ = std::make_unique<Ground>();
+	ground_->Initialize(groundModel_.get());
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	debugCamera_->Update();
+	camera_.matView = debugCamera_->GetViewProjection().matView;
+	camera_.matProjection = debugCamera_->GetViewProjection().matProjection;
+	camera_.TransferMatrix();
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +67,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	player_->Draw(camera_);
+	skydome_->Draw(camera_);
+	ground_->Draw(camera_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
