@@ -5,7 +5,6 @@
 #include "TextureManager.h"
 #include "WinApp.h"
 
-
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {}
@@ -16,9 +15,13 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	cubeModel_.reset(Model::Create());
-	skydomeModel_.reset(Model::CreateFromOBJ("skydome"));
-	groundModel_.reset(Model::CreateFromOBJ("ground"));
+	cubeModel_ = std::make_unique<Model>(Model::Create());
+	skydomeModel_ = std::make_unique<Model>(Model::CreateFromOBJ("skydome"));
+	groundModel_ = std::make_unique<Model>(Model::CreateFromOBJ("ground"));
+	playerPartModels_["Head"] = std::make_unique<Model>(Model::CreateFromOBJ("head"));
+	playerPartModels_["Body"] = std::make_unique<Model>(Model::CreateFromOBJ("body"));
+	playerPartModels_["Arm_R"] = std::make_unique<Model>(Model::CreateFromOBJ("arm_r"));
+	playerPartModels_["Arm_L"] = std::make_unique<Model>(Model::CreateFromOBJ("arm_l"));
 
 	camera_.Initialize();
 

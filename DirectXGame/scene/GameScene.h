@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
+#include <string>
 
 #include "Audio.h"
 #include "DirectXCommon.h"
@@ -55,10 +57,11 @@ private: // メンバ変数
 	/// <summary>
 	/// リソース
 	/// </summary>
+	std::unordered_map<std::string, std::unique_ptr<Model>> modelContainer_;
 	std::unique_ptr<Model> cubeModel_;
 	std::unique_ptr<Model> skydomeModel_;
 	std::unique_ptr<Model> groundModel_;
-	
+	std::unordered_map<std::string, std::unique_ptr<Model>> playerPartModels_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
