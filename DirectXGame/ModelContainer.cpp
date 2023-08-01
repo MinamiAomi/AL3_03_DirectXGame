@@ -10,16 +10,18 @@ ModelContainer* ModelContainer::GetInstance() {
 Model* ModelContainer::LoadCube() { 
     Model* result = Find("cube");
 	if (!result) {
-		modelMap_["cube"] = std::make_unique<Model>(Model::Create());
-		result = modelMap_["cube"].get();
+		std::unique_ptr<Model> model(Model::Create());
+		modelMap_["cube"] = std::move(model);
+        result = modelMap_["cube"].get();
     }
     return result; 
 }
 
-Model* ModelContainer::LoadModel(const std::string& modelName) { 
+Model* ModelContainer::LoadModel(const std::string& modelName, bool smoothing) { 
     Model* result = Find(modelName);
 	if (!result) {
-		modelMap_[modelName] = std::make_unique<Model>(Model::CreateFromOBJ(modelName));
+		std::unique_ptr<Model> model(Model::CreateFromOBJ(modelName, smoothing));
+		modelMap_[modelName] = std::move(model);
 		result = modelMap_[modelName].get();
     }
     return result; 

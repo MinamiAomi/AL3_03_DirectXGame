@@ -16,6 +16,18 @@ namespace Math {
     inline float Lerp(float s, float e, float t) {
         return s + t * (e - s);
     }
+
+    inline float LerpShortAngle(float s, float e, float t) { 
+        float diff = e - s;
+	    diff = std::fmod(diff, TwoPi);
+	    if (diff > Pi) {
+		    diff += -TwoPi;
+        }else 
+	    if (diff < -Pi) {
+		    diff += TwoPi;
+        }
+        return s + diff * t;
+    }
 }
 
 static const Vector2 Vector2Zero{ 0.0f,0.0f };

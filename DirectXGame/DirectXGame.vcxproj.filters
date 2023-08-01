@@ -72,9 +72,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Skydome.cpp" />
-    <ClCompile Include="ModelContainer.cpp">
-      <Filter>KamataEngine\ソース ファイル</Filter>
+    <ClCompile Include="ModelContainer.cpp" />
+    <ClCompile Include="WorldTransformEx.cpp">
+      <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="FollowCamera.cpp" />
+    <ClCompile Include="BaseCharacter.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GlobalVariables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -174,6 +179,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Skydome.h" />
     <ClInclude Include="ModelContainer.h" />
+    <ClInclude Include="FollowCamera.h" />
+    <ClInclude Include="BaseCharacter.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GlobalVariables.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">

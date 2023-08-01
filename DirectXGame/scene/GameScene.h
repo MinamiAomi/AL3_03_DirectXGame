@@ -12,11 +12,14 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "AxisIndicator.h"
 
 #include "DebugCamera.h"
 #include "Player.h"
 #include "Skydome.h"
 #include "Ground.h"
+#include "FollowCamera.h"
+#include "Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -53,22 +56,23 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	AxisIndicator* axisIndicator_ = nullptr;
 
 	/// <summary>
 	/// リソース
 	/// </summary>
-	std::unordered_map<std::string, std::unique_ptr<Model>> modelContainer_;
-	std::unique_ptr<Model> cubeModel_;
-	std::unique_ptr<Model> skydomeModel_;
-	std::unique_ptr<Model> groundModel_;
-	std::unordered_map<std::string, std::unique_ptr<Model>> playerPartModels_;
+	class ModelContainer* modelContainer_ = nullptr;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	ViewProjection camera_;
+	ViewProjection sceneCamera_;
 
-	std::unique_ptr<DebugCamera> debugCamera_;
 	std::unique_ptr<Player> player_;
+	std::unique_ptr<Enemy> enemy_;
 	std::unique_ptr<Skydome> skydome_;
 	std::unique_ptr<Ground> ground_;
+	std::unique_ptr<FollowCamera> followCamera_;
+	std::unique_ptr<DebugCamera> debugCamera_;
+	bool useDebugCamera = false;
 };

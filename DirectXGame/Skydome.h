@@ -3,8 +3,8 @@
 #include <memory>
 
 #include "Model.h"
-#include "WorldTransform.h"
 #include "ViewProjection.h"
+#include "WorldTransform.h"
 
 class Skydome {
 public:
@@ -13,6 +13,6 @@ public:
 	void Draw(const ViewProjection& viewProjection);
 
 private:
-	Model* model_;
+	Model* model_ = nullptr;
 	WorldTransform transform_;
 };
